@@ -1,4 +1,5 @@
 public class King extends Character {
+    public int hierarchy = 4;
     // can only move one Step in any direction
     // if dead game lost
 
@@ -11,8 +12,8 @@ public class King extends Character {
     }
 
     @Override
-    public boolean move(char x, int posY) {
-        int posX = StringToPosition(x);
+    public boolean move(int x, int posY) {
+        int posX = x;
         if(!isInField(posX, posY)){
             System.out.println("Position not inside the field");
             return false;

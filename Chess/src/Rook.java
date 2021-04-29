@@ -1,6 +1,8 @@
 import java.lang.reflect.Array;
 
 public class Rook extends Character{
+    public int hierarchy = 1;
+
     public Rook(boolean white, int position[]) {
         alive = true;
         type = "Rook";
@@ -10,14 +12,40 @@ public class Rook extends Character{
     }
 
     @Override
-    public boolean move(char x, int posY) {
-        int posX = StringToPosition(x);
-        if(!isInField(posX, posY)){
-            System.out.println("Position not inside the field");
-            return false;
+    // X and Y are swapped like array uses it
+    public boolean move(int posX, int posY) {
+        System.out.println("position X: " + position[0]);
+        System.out.println("position Y: " + position[1]);
+        System.out.println("destination X: " + posX);
+        System.out.println("destination Y: " + posY);
+
+        int xtemp = position[0];
+        int ytemp = position[1];
+        if(posX == position[0] || posY == position[1]) {
+
+
+            while (ytemp != posY) {
+                ytemp++;
+                if (Chessboard.chessboard[xtemp][ytemp] != null) {
+                    System.out.println("Another Character is in the way!");
+                    return false; // if theres a character in the way we cant move this way
+                }
+            }
+            while (xtemp != posX) {
+                xtemp++;
+                if (Chessboard.chessboard[xtemp][ytemp] != null) {
+                    System.out.println("Another Character is in the way!");
+                    return false; // if theres a character in the way we cant move this way
+                }
+            }
+
+            if (!isInField(posX, posY)) {
+                System.out.println("Position not inside the field");
+                return false;
+            }
+
+            System.out.println("Rook cannot move this way - Please check the rules again!");
         }
-        if(posX == position[0] || posY == position[1]) return true;
-        System.out.println("Rook cannot move this way - Please check the rules again!");
-        return false;
+        return true;
     }
 }
